@@ -1,5 +1,7 @@
 package com.battleship.battleship.entity;
 
+import org.json.JSONObject;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,15 +12,12 @@ import java.lang.reflect.Array;
 public class GameWar {
     @Id
     private long id;
-    private long gameId;
     private long playerId;
     private String  board;
 
-    public GameWar(long id, long gameId, long playerId, String board) {
+    public GameWar(long id, long playerId) {
         this.id = id;
-        this.gameId = gameId;
         this.playerId = playerId;
-        this.board = board;
     }
 
     public long getId() {
@@ -29,13 +28,6 @@ public class GameWar {
         this.id = id;
     }
 
-    public long getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(long gameId) {
-        this.gameId = gameId;
-    }
 
     public long getPlayerId() {
         return playerId;
@@ -53,13 +45,4 @@ public class GameWar {
         this.board = board;
     }
 
-    @Override
-    public String toString() {
-        return "gameWar{" +
-                "id=" + id +
-                ", gameId=" + gameId +
-                ", playerId=" + playerId +
-                ", board='" + board + '\'' +
-                '}';
-    }
 }
