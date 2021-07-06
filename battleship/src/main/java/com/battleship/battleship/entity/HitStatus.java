@@ -32,6 +32,8 @@ public class HitStatus {
         this.hitStatus = hitStatus;
     }
 
+    public HitStatus(){};
+
     @Override
     public String toString() {
         return "hitStatus{" +

@@ -19,6 +19,7 @@ public class BattleshipPlayer {
     public BattleshipPlayer(PlayerRepository playerRepository){
         this.playerRepository = playerRepository;
     }
+
     @RequestMapping(path = "/player/list")
     public List<Players> getPlayers(){
         return playerRepository.findAll();
@@ -42,8 +43,7 @@ public class BattleshipPlayer {
     }
 
     @RequestMapping(value = "/player/{player_id}")
-    public ResponseEntity<String>  getPlayerProfil(@PathVariable("player_id") String id) {
-        System.out.println("getPlayerProfil");
+    public ResponseEntity<String>  getPlayerProfile(@PathVariable("player_id") String id) {
 
         Optional<Players> playerById = playerRepository.findPlayerByID(id);
         if(playerById

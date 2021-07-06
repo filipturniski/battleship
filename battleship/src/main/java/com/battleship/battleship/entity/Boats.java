@@ -21,12 +21,15 @@ public class Boats {
     private long size;
     private long LOT;
 
-    public Boats(String boat, long HP, long size, long LOT) {
+    public Boats(long id, String boat, long HP, long size, long LOT) {
+        this.id = id;
         this.boat = boat;
         this.HP = HP;
         this.size = size;
         this.LOT = LOT;
     }
+
+    public Boats(){};
 
     public long getId() {
         return id;

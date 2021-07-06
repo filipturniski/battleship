@@ -14,6 +14,9 @@ public class GameStatus {
         this.gameStatusValue = gameStatusValue;
     }
 
+    public GameStatus() {
+    }
+
     public long getId() {
         return id;
     }
