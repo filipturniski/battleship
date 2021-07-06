@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class players {
+public class Players {
     @Id
     @SequenceGenerator(
             name = "players_sequence",
@@ -16,15 +16,16 @@ public class players {
             generator = "players_sequence"
     )
     private long id;
-    private String player;
+    private String player = "player";
     private String name;
     private String email;
 
-    public players(String player, String name, String email) {
-        this.player = player;
+    public Players(String name, String email) {
         this.name = name;
         this.email = email;
     }
+
+    public Players(){}
 
     public long getId() {
         return id;

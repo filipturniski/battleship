@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class gameStatus {
+public class GameStatus {
     @Id
     private long id;
     private String gameStatusValue;
 
-    public gameStatus(long id, String gameStatusValue) {
+    public GameStatus(long id, String gameStatusValue) {
         this.id = id;
         this.gameStatusValue = gameStatusValue;
     }

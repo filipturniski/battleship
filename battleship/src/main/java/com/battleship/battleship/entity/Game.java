@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class game {
+public class Game {
     @Id
     @SequenceGenerator(
             name = "game_sequence",
@@ -22,7 +22,7 @@ public class game {
     private String startingPlayer;
     private String gameStatus;
 
-    public game(String fixText, String playerId, String opponentId, String startingPlayer, String gameStatus) {
+    public Game(String fixText, String playerId, String opponentId, String startingPlayer, String gameStatus) {
         this.fixText = fixText;
         this.playerId = playerId;
         this.opponentId = opponentId;

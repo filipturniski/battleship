@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class hitStatus {
+public class HitStatus {
     @Id
     private long id;
     private String hitStatus;
@@ -27,7 +27,7 @@ public class hitStatus {
         this.hitStatus = hitStatus;
     }
 
-    public hitStatus(long id, String hitStatus) {
+    public HitStatus(long id, String hitStatus) {
         this.id = id;
         this.hitStatus = hitStatus;
     }

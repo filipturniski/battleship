@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class boats {
+public class Boats {
     @Id
     @SequenceGenerator(
             name = "boats_sequence",
@@ -21,7 +21,7 @@ public class boats {
     private long size;
     private long LOT;
 
-    public boats(String boat, long HP, long size, long LOT) {
+    public Boats(String boat, long HP, long size, long LOT) {
         this.boat = boat;
         this.HP = HP;
         this.size = size;

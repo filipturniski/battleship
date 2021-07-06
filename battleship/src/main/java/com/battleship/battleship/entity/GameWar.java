@@ -7,14 +7,14 @@ import java.lang.reflect.Array;
 
 @Entity
 @Table
-public class gameWar {
+public class GameWar {
     @Id
     private long id;
     private long gameId;
     private long playerId;
     private String  board;
 
-    public gameWar(long id, long gameId, long playerId, String board) {
+    public GameWar(long id, long gameId, long playerId, String board) {
         this.id = id;
         this.gameId = gameId;
         this.playerId = playerId;

@@ -5,7 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-public class boatsOnBoard {
+public class BoatsOnBoard {
     @Id
     @SequenceGenerator(
             name = "goatsOnBoars_sequence",
@@ -22,7 +22,7 @@ public class boatsOnBoard {
     private String boatId;
     private String currentHP;
 
-    public boatsOnBoard(String gameId, String playerId, String boatId, String currentHP) {
+    public BoatsOnBoard(String gameId, String playerId, String boatId, String currentHP) {
         this.gameId = gameId;
         this.playerId = playerId;
         this.boatId = boatId;
