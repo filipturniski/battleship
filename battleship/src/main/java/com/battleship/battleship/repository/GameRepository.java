@@ -18,5 +18,10 @@ public interface GameRepository  extends JpaRepository<Game, Long> {
     @Query(value = "SELECT * FROM game WHERE player_id = :id or opponent_id = id",
             nativeQuery = true)
     public List<Game> findGameByUser(@Param("id")Long id);
+
+    @Query(value = "SELECT player_turn FROM game WHERE player_id = ?1 and id = ?2",
+            nativeQuery = true)
+    long getPlayerTurn(long palerId, long gameId);
+
 }
 

@@ -23,6 +23,13 @@ public class GameWar {
     private long machId;
     private String  board;
 
+    public GameWar(long id, long playerId, long machId, String board) {
+        this.id = id;
+        this.playerId = playerId;
+        this.machId = machId;
+        this.board = board;
+    }
+
     public long getMachId() {
         return machId;
     }

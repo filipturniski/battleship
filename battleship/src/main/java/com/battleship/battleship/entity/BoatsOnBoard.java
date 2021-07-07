@@ -28,6 +28,9 @@ public class BoatsOnBoard {
         this.currentHP = currentHP;
     }
 
+    public BoatsOnBoard() {
+    }
+
     public long getId() {
         return id;
     }
