@@ -141,4 +141,32 @@ public class WarGame {
         }
     }
 
+    @RequestMapping(path = "/player/{player_id}/game/{game_id}")
+    public ResponseEntity<String>  getGameStatus (@PathVariable("player_id") String playerId, @PathVariable("game_id") String machId){
+        Optional<Players> playerByEmail = playerRepository.findPlayerByLongID(Long.parseLong(playerId.replaceAll("[^0-9]","")));
+        Optional<Game> machByID = gameRepository.findById(Long.parseLong(machId.replaceAll("[^0-9]","")));
+        if(!playerByEmail.isPresent())
+            return new ResponseEntity<>(new JSONObject()
+                    .put("error-code", "error.unknown-user-id")
+                    .put("error-arg", playerId)
+                    .toString(), HttpStatus.NOT_FOUND);
+
+        else if(!machByID.isPresent())
+            return new ResponseEntity<>(new JSONObject()
+                    .put("error-code", "error.unknown-game-id")
+                    .put("error-arg", machId)
+                    .toString(), HttpStatus.NOT_FOUND);
+        else{
+
+            return new ResponseEntity<>(  new JSONObject(new GameStatusHelper(new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(playerId, machId)),
+                    new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(String.valueOf(gameRepository.findGameByID(playerId).get().getOpponentId()), machId)),
+                    new GameHelper(String.valueOf(gameRepository.findGameByID(playerId).get().getPlayerTurn())))).toString(), HttpStatus.OK);
+/*
+            return new GameStatusHelper(new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(playerId, machId)),
+                new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(String.valueOf(gameRepository.findGameByID(playerId).get().getOpponentId()), machId)),
+                new GameHelper(String.valueOf(gameRepository.findGameByID(playerId).get().getPlayerTurn())));*/
+        }
+
+    }
+
 }

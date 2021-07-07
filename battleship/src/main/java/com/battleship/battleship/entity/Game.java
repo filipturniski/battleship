@@ -23,6 +23,7 @@ public class Game {
     private long opponentId;
     private long startingPlayer;
     private String gameStatus;
+    private long playerTurn;
 
     public Game(String fixText, long playerId, long opponentId, long startingPlayer, String gameStatus) {
         this.fixText = fixText;
@@ -37,9 +38,18 @@ public class Game {
         this.opponentId = opponentId;
         this.startingPlayer = playerId;
         this.gameStatus = "IN_PROGRESS";
+        this.playerTurn = playerId;
     }
 
     public Game() {
+    }
+
+    public long getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(long playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     public long getId() {
