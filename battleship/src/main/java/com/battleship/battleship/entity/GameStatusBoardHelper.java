@@ -21,8 +21,7 @@ public class GameStatusBoardHelper {
         this.board =  Arrays.asList(game.get().getBoard().substring(1, game.get().getBoard().length() - 1).split(","));
     }
 
-    public void GameStatusBoardHelperOpponent(Optional<GameWar> game) {
-        System.out.println("GameStatusBoardHelperOpponent");
+    public GameStatusBoardHelper(Optional<GameWar> game, String string) {
         this.player_id = "player-" + game.get().getPlayerId();
         this.board =  replaceNumbersWithDots(Arrays.asList(game.get().getBoard().substring(1, game.get().getBoard().length() - 1).split(",")));
     }

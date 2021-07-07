@@ -63,9 +63,6 @@ public class WarGame {
         return outputList;
     }
 
-
-
-
     @PostMapping(path = "/setShips")
     public ResponseEntity<String> setBoard(@RequestBody BoardHelper boardHelper){
 
@@ -159,14 +156,27 @@ public class WarGame {
         else{
 
             return new ResponseEntity<>(  new JSONObject(new GameStatusHelper(new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(playerId, machId)),
-                    new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(String.valueOf(gameRepository.findGameByID(playerId).get().getOpponentId()), machId)),
+                    new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(String.valueOf(gameRepository.findGameByID(playerId).get().getOpponentId()), machId), "opponent"),
                     new GameHelper(String.valueOf(gameRepository.findGameByID(playerId).get().getPlayerTurn())))).toString(), HttpStatus.OK);
-/*
-            return new GameStatusHelper(new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(playerId, machId)),
-                new GameStatusBoardHelper(gameWarRepository.findByPlayerIdAndMAchID(String.valueOf(gameRepository.findGameByID(playerId).get().getOpponentId()), machId)),
-                new GameHelper(String.valueOf(gameRepository.findGameByID(playerId).get().getPlayerTurn())));*/
+
         }
 
     }
 
+    @RequestMapping(path = "/player/{player_id}/game/list")
+    public ResponseEntity<String>  getGameList (@PathVariable("player_id") String playerId){
+        Optional<Players> playerById = playerRepository.findPlayerByLongID(Long.parseLong(playerId.replaceAll("[^0-9]","")));
+        List<Game> playerGames= gameRepository.findGameByUser(Long.parseLong(playerId.replaceAll("[^0-9]","")));
+        if(!playerById.isPresent())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(playerGames.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        else{
+            return new ResponseEntity<>(  new JSONObject()
+                    .put("games", playerGames)
+                    .toString(), HttpStatus.OK);
+
+        }
+
+    }
 }
