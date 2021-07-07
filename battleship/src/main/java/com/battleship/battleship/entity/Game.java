@@ -39,6 +39,9 @@ public class Game {
         this.gameStatus = "IN_PROGRESS";
     }
 
+    public Game() {
+    }
+
     public long getId() {
         return id;
     }

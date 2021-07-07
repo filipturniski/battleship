@@ -17,8 +17,8 @@ public class BoardHelper {
     }
 
     public BoardHelper(String machId, String playerId, List<String> board) {
-        this.machId = Long.parseLong(machId.split("-")[1]) ;
-        this.playerId = Long.parseLong(playerId.split("-")[1]) ;
+        this.machId = Long.parseLong(machId.replaceAll("\\D+",""));
+        this.playerId = Long.parseLong(playerId.replaceAll("\\D+","")) ;
         this.board = board;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -66,8 +67,9 @@ public class WarGame {
 
 
     @PostMapping(path = "/setShips")
-    public ResponseEntity<String> getAvailableBoatsList(@RequestBody BoardHelper boardHelper){
-        Optional<Players> playerByEmail = playerRepository.findPlayerByEmail(String.valueOf(boardHelper.getPlayerId()));
+    public ResponseEntity<String> setBoard(@RequestBody BoardHelper boardHelper){
+
+        Optional<Players> playerByEmail = playerRepository.findPlayerByLongID(boardHelper.getPlayerId());
         Optional<Game> machByID = gameRepository.findById(boardHelper.getMachId());
         if(!playerByEmail.isPresent())
             return new ResponseEntity<>(new JSONObject()
@@ -82,10 +84,61 @@ public class WarGame {
                     .toString(), HttpStatus.CONFLICT);
 
         else{
+           if(boardHasErrors(boardHelper.getBoard()))
+                return new ResponseEntity<>(new JSONObject()
+                        .put("error-code", "game-does-support-board-config")
+                        .put("error-arg", boardHelper.getBoard())
+                        .toString(), HttpStatus.CONFLICT);
+
             gameWarRepository.save(boardHelper.toWarGame());
             return new ResponseEntity<>("", HttpStatus.CREATED);
         }
 
+    }
+
+    private boolean boardHasErrors(List<String> board) {
+        if(board.size() != 10){
+            return true;
+        }
+
+
+        for(int i = 0; i<board.size(); i++){
+            try{
+                String[] stringArray = board.get(i).split("(?!^)");
+                String[] stringArrayUp = board.get(i+1).split("(?!^)");
+                String[] stringArrayDown = board.get(i-1).split("(?!^)");
+                if(stringArray.length != 10){
+                    return true;
+                }
+
+
+                for(int j = 0; j<stringArray.length; j++){
+                    try{
+                        if(isNumeric(stringArray[j]) ){
+                            if(isNumeric(stringArray[j+1]) && (stringArray[j] != stringArray[j+1]) )
+                                return true;
+                            if( isNumeric(stringArray[j-1]) && (stringArray[j] != stringArray[j-1]) )
+                                return true;
+                            if(isNumeric(stringArray[j+1]) && (stringArray[j] != stringArrayUp[j]) )
+                                return true;
+                            if(isNumeric(stringArray[j+1]) && (stringArray[j] != stringArrayDown[j]) )
+                                return true;
+                        }
+
+                    }catch (Exception e){}
+                }
+            }catch (Exception e){}
+        }
+        return false;
+    }
+
+    private boolean  isNumeric(String value){
+        try{
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

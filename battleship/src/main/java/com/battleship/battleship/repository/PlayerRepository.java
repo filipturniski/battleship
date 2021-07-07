@@ -17,6 +17,9 @@ public interface PlayerRepository extends JpaRepository<Players, Long> {
             nativeQuery = true)
     Optional<Players> findPlayerByID(String id);
 
+    @Query("SELECT p FROM Players p WHERE p.id = ?1")
+    Optional<Players> findPlayerByLongID(long id);
+
     @Query(value = "SELECT id FROM Players WHERE id <> SUBSTRING_INDEX(?1,'-',-1);",
             nativeQuery = true)
     List<Long> getAllIds(String id);
