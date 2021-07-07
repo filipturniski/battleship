@@ -2,22 +2,39 @@ package com.battleship.battleship.entity;
 
 import org.json.JSONObject;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.lang.reflect.Array;
 
 @Entity
 @Table
 public class GameWar {
     @Id
+    @SequenceGenerator(
+            name = "gameWar_sequence",
+            sequenceName = "gameWar_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "gameWar_sequence"
+    )
     private long id;
     private long playerId;
+    private long machId;
     private String  board;
 
-    public GameWar(long id, long playerId) {
-        this.id = id;
+    public GameWar(long machId, long playerId) {
+        this.machId = machId;
         this.playerId = playerId;
+    }
+
+    public GameWar() {
+    }
+
+    public GameWar(long machId, long playerId, String board) {
+        this.machId = machId;
+        this.playerId = playerId;
+        this.board = board;
     }
 
     public long getId() {
@@ -45,4 +62,12 @@ public class GameWar {
         this.board = board;
     }
 
+    @Override
+    public String toString() {
+        return "GameWar{" +
+                "id=" + id +
+                ", playerId=" + playerId +
+                ", board='" + board + '\'' +
+                '}';
+    }
 }

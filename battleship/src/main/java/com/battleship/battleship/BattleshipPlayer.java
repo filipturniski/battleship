@@ -32,7 +32,7 @@ public class BattleshipPlayer {
         if(playerByEmail.isPresent())
             return new ResponseEntity<>(new JSONObject()
                     .put("error-code", "error.username-already-taken")
-                    .put("error-arg", "pero.peric@ag04.com")
+                    .put("error-arg", player.getEmail())
                     .toString(), HttpStatus.CONFLICT);
 
         else{
