@@ -1,10 +1,9 @@
 package com.battleship.battleship.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
+@Entity
+@Table
 public class BoatsOnBoard {
     @Id
     @SequenceGenerator(
@@ -17,12 +16,12 @@ public class BoatsOnBoard {
             generator = "goatsOnBoars_sequence"
     )
     private long id;
-    private String gameId;
-    private String playerId;
-    private String boatId;
-    private String currentHP;
+    private long gameId;
+    private long playerId;
+    private long boatId;
+    private long currentHP;
 
-    public BoatsOnBoard(String gameId, String playerId, String boatId, String currentHP) {
+    public BoatsOnBoard(long gameId, long playerId, long boatId, long currentHP) {
         this.gameId = gameId;
         this.playerId = playerId;
         this.boatId = boatId;
@@ -37,35 +36,35 @@ public class BoatsOnBoard {
         this.id = id;
     }
 
-    public String getGameId() {
+    public long getGameId() {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
+    public void setGameId(long gameId) {
         this.gameId = gameId;
     }
 
-    public String getPlayerId() {
+    public long getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(String playerId) {
+    public void setPlayerId(long playerId) {
         this.playerId = playerId;
     }
 
-    public String getBoatId() {
+    public long getBoatId() {
         return boatId;
     }
 
-    public void setBoatId(String boatId) {
+    public void setBoatId(long boatId) {
         this.boatId = boatId;
     }
 
-    public String getCurrentHP() {
+    public long getCurrentHP() {
         return currentHP;
     }
 
-    public void setCurrentHP(String currentHP) {
+    public void setCurrentHP(long currentHP) {
         this.currentHP = currentHP;
     }
 
