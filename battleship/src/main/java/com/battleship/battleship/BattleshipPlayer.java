@@ -37,7 +37,7 @@ public class BattleshipPlayer {
 
         else{
             playerRepository.save(player);
-            return new ResponseEntity<>("", HttpStatus.CREATED);
+            return new ResponseEntity<>( HttpStatus.CREATED);
         }
 
     }

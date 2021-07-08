@@ -19,7 +19,7 @@ public interface GameRepository  extends JpaRepository<Game, Long> {
             nativeQuery = true)
     public List<Game> findGameByUser(@Param("id")Long id);
 
-    @Query(value = "SELECT player_turn FROM game WHERE player_id = ?1 and id = ?2",
+    @Query(value = "SELECT player_turn FROM game WHERE player_id = ?1 or opponent_Id = ?1 and id = ?2",
             nativeQuery = true)
     long getPlayerTurn(long palerId, long gameId);
 

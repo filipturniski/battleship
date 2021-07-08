@@ -35,23 +35,29 @@ public class WarGame {
     }
 
     @RequestMapping(path = "/getBoats/list/{mach_id}/{player_id}")
-    public List<Boats> getBoatsList(@PathVariable("mach_id") String machId, @PathVariable("player_id") String playerId){
+    public ResponseEntity<String> getBoatsList(@PathVariable("mach_id") String machId, @PathVariable("player_id") String playerId){
 
         List<Boats> boatsList  = boatsRepository.findAll();
 
         List<Boats> outputList = new ArrayList<Boats>();
 
         List<BoatsOnBoard> boatsOnBoardList = new ArrayList<BoatsOnBoard>();
-/*
+
         Optional<Players> playerByID = playerRepository.findPlayerByID(playerId.split("-")[1]);
 
         Optional<Game> machByID = gameRepository.findById(Long.parseLong(machId.split("-")[1]));
 
         if(!playerByID.isPresent())
-            return null;
+            return new ResponseEntity<>(new JSONObject()
+                    .put("error-code", "error.username-does-not-exists")
+                    .put("error-arg", playerId)
+                    .toString(), HttpStatus.CONFLICT);
         else if(!machByID.isPresent())
-            return null;
-*/
+            return new ResponseEntity<>(new JSONObject()
+                    .put("error-code", "error.mech-does-not-exists")
+                    .put("error-arg", machId)
+                    .toString(), HttpStatus.CONFLICT);
+
         long id = 0;
         for (int i = 0; i<boatsList.size(); i++) {
             for(int j = 0; j<boatsList.get(i).getLOT(); j++){
@@ -62,7 +68,9 @@ public class WarGame {
         }
 
         boatsOnBoardRepository.saveAll(boatsOnBoardList);
-        return outputList;
+        return new ResponseEntity<>(new JSONObject()
+                .put("boats", outputList)
+                .toString(), HttpStatus.OK);
     }
 
     @PostMapping(path = "/setShips")
